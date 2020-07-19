@@ -18,7 +18,6 @@ export class ValidatorService {
     domicilio:{error:false, text : ""}
     };
 
-    console.log(e);
     result.name = this.nameAndSurname(e.nombre);
     result.surname1 = this.nameAndSurname(e.apellido1);
     result.surname2 = this.nameAndSurname(e.apellido2);

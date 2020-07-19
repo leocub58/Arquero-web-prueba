@@ -85,9 +85,6 @@ export class HomeComponent implements OnInit {
         alert("Ha ocurrido un error, intentelo más tarde")
       })
     }
-    else{
-      console.log(e.valid);
-    }
     
   }
 
@@ -113,9 +110,6 @@ export class HomeComponent implements OnInit {
         //error
         alert("Ha ocurrido un error, intentelo más tarde")
       })
-    }
-    else{
-      console.log(e.valid);
     }
   }
 
