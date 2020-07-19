@@ -82,6 +82,7 @@ export class HomeComponent implements OnInit {
         this.getEmpleados();
       }, () => {
         //error
+        alert("Ha ocurrido un error, intentelo más tarde")
       })
     }
     else{
@@ -93,6 +94,8 @@ export class HomeComponent implements OnInit {
   public eliminarEmpleado(e : empleado) {
     this.http.delete("/"+e.id).subscribe(()=>{
       this.getEmpleados();
+    }, () => {
+      alert("Ha ocurrido un error, intentelo más tarde")
     })
   }
 
@@ -108,6 +111,7 @@ export class HomeComponent implements OnInit {
         this.getEmpleados();
       }, () => {
         //error
+        alert("Ha ocurrido un error, intentelo más tarde")
       })
     }
     else{
