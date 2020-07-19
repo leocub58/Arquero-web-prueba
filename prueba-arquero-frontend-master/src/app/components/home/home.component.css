@@ -1,0 +1,75 @@
+
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+.cursor{
+  cursor: pointer;
+}
+
+
+.table .thead-dark th {
+  color: #fff;
+  background-color: #fd7300 !important;
+  border-color: #ffad6a !important;
+
+}
+
+.remove-btn {
+  background-image: url(../../../assets/iconos/borrar.png);
+background-repeat: no-repeat;
+background-position: left;
+background-size: cover;
+padding: 10px;
+}
+
+.edit-btn {
+  background-image: url(../../../assets/iconos/editar.png);
+background-repeat: no-repeat;
+background-position: left;
+background-size: cover;
+padding: 10px;
+}
+
+.add-btn {
+  background-image: url(../../../assets/iconos/mas.png);
+background-repeat: no-repeat;
+background-position: left;
+background-size: cover;
+padding: 10px;
+}
+
+.reload-btn {
+  background-image: url(../../../assets/iconos/recargar.png);
+background-repeat: no-repeat;
+background-position: left;
+background-size: cover;
+padding: 10px;
+}
+
+.cancel-btn {
+  background-image: url(../../../assets/iconos/cancel.png);
+background-repeat: no-repeat;
+background-position: left;
+background-size: cover;
+padding: 10px;
+}
+
+.success-btn {
+  background-image: url(../../../assets/iconos/sucess.png);
+background-repeat: no-repeat;
+background-position: left;
+background-size: cover;
+padding: 10px;
+}
+
+.tools {
+  display: flex;
+  align-items: right;
+  justify-content: right;
+}
+
+.text-warning {
+  color: #fe7302!important;
+}

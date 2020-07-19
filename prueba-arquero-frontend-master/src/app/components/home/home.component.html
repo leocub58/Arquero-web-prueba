@@ -1,0 +1,222 @@
+
+<!-- SPINNER CARGANDO -->
+<div class="d-flex justify-content-center mt-5" *ngIf="loading && !error">
+  <div class="spinner-border text-warning" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>
+
+<!-- ERROR ALERT -->
+<div class="container mt-5 alert alert-danger" role="alert" *ngIf="error">
+  ERROR! No hemos podido cargar los datos, intentelo más tarde.
+</div>
+
+<!-- TABLA -->
+<div class="fade-in-top" *ngIf="!loading">
+    <div class="row m-0 flex-row-reverse">
+      <div class="pr-3 pt-3">
+        <!-- Button add -->
+        <button type="button" class="btn btn-default add-btn m-2" (click)="anadirEmpleado()">
+        </button>
+        
+        <!-- Button reload -->
+        <button type="button" class="btn btn-default reload-btn" (click)="getEmpleados()">
+        </button>
+      </div>
+    </div>
+
+<!-- HEADER -->
+  <div class="d-block m-auto p-3" style="overflow-x: auto;">
+    <form>
+      <table class="table table-striped " >
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">NOMBRE</th>
+            <th scope="col">APELLIDO1</th>
+            <th scope="col">APELLIDO2</th>
+            <th scope="col">DNI</th>
+            <th scope="col">DOMICILIO</th>
+            <th scope="col">ACCIONES</th>
+          </tr>
+        </thead>
+
+        <!-- EMPLEADOS -->
+        <tbody>
+          <tr *ngFor="let e of Empleados; let i = index" >
+            <th scope="row">{{e.empleado.id}}</th>
+            <td>
+              <div id="name" *ngIf="!e.empleado.edit">
+                {{e.empleado.nombre}}
+              </div>
+              <div id="nameInputCol" class="form-group mx-sm-3 mb-2 flip-in-hor-bottom" *ngIf="e.empleado.edit">
+                  <input type="text" [(ngModel)]="e.empleado.nombre" class="form-control" id="NameInput" [name]="'Name'+e.empleado.id.toString()" placeholder="Nombre">
+                  <small id="Error" class="text-danger" *ngIf="e.valid.name.error">
+                    {{e.valid.name.text}}
+                  </small> 
+               </div>
+               
+            </td>
+            <td>
+              <div id="surname1" *ngIf="!e.empleado.edit">
+                {{e.empleado.apellido1}}
+              </div>
+              <div id="surname1InputCol" class="form-group mx-sm-3 mb-2 flip-in-hor-bottom" *ngIf="e.empleado.edit">
+                  <input type="text" [(ngModel)]="e.empleado.apellido1" class="form-control" id="Surname1Input" [name]="'Surname1'+e.empleado.id.toString()" placeholder="Apellido1">
+                  <small id="Error" class="text-danger" *ngIf="e.valid.surname1.error">
+                    {{e.valid.surname1.text}}
+                  </small> 
+                </div>
+            </td>
+            <td>
+              <div id="surname2" *ngIf="!e.empleado.edit">
+                {{e.empleado.apellido2}}
+              </div>
+              <div id="surname2InputCol" class="form-group mx-sm-3 mb-2 flip-in-hor-bottom" *ngIf="e.empleado.edit">
+                  <input type="text" [(ngModel)]="e.empleado.apellido2" class="form-control" id="Surname2Input" [name]="'Surname2'+e.empleado.id.toString()" placeholder="Apellido2">
+                  <small id="Error" class="text-danger" *ngIf="e.valid.surname2.error">
+                    {{e.valid.surname2.text}}
+                  </small> 
+                </div>
+            </td>
+            <td>
+              <div id="dni" *ngIf="!e.empleado.edit">
+                {{e.empleado.dni}}
+              </div>
+              <div id="dniInputCol" class="form-group mx-sm-3 mb-2 flip-in-hor-bottom" *ngIf="e.empleado.edit">
+                  <input type="text" [(ngModel)]="e.empleado.dni" class="form-control" id="DniInput" [name]="'Dni'+e.empleado.id.toString()" placeholder="DNI">
+                  <small id="Error" class="text-danger" *ngIf="e.valid.dni.error">
+                    {{e.valid.dni.text}}
+                  </small> 
+                </div>
+            </td>
+            <td>
+              <div id="domicilio" *ngIf="!e.empleado.edit">
+                {{e.empleado.domicilio}}
+              </div>
+              <div id="DomicilioInputCol" class="form-group mx-sm-3 mb-2 flip-in-hor-bottom" *ngIf="e.empleado.edit">
+                  <input type="text" [(ngModel)]="e.empleado.domicilio" class="form-control" id="DomicilioInput" [name]="'Domicilio'+e.empleado.id.toString()" placeholder="Domicilio">
+                  <small id="Error" class="text-danger" *ngIf="e.valid.domicilio.error">
+                    {{e.valid.domicilio.text}}
+                  </small> 
+                </div>
+            </td>
+            <td>
+                <!-- ACCIONES  -->
+                <div class="row" *ngIf="!e.empleado.edit">
+                    <div class="col">
+                        <button type="button" class="btn btn-default btn-lg remove-btn" data-toggle="modal" data-target="#exampleModalCenter" (click)="EmpleadoSelected = e.empleado">
+                        </button>
+                    </div>
+                    <div class="col">
+                        <button type="button" class="btn btn-default btn-lg edit-btn" (click)="e.empleado.edit = true">
+                        </button>
+                    </div>
+                </div>
+                <div class="row" *ngIf="e.empleado.edit">
+                  <div class="col">
+                      <button type="button" class="btn btn-default btn-lg cancel-btn" (click)="e.empleado.edit = false">
+                      </button>
+                  </div>
+                  <div class="col">
+                      <button type="button" class="btn btn-default btn-lg success-btn" (click)="editarEmpleado(i)">
+                      </button>
+                  </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </form>
+  </div>  
+
+  <div class="d-block m-auto p-3" style="overflow-x: auto;">
+    <h3 *ngIf="NuevosEmpleados.length > 0">
+      AÑADIR EMPLEADOS
+    </h3>
+      <table class="table table-striped " >
+        <!-- NUEVOS EMPLEADOS -->
+        <tbody>
+          <tr *ngFor="let item of NuevosEmpleados; let i = index" class="tilt-in-left-1 ">
+            <th scope="row"> </th>
+            <td>
+              <div id="nameInputCol" class="form-group mx-sm-3 mb-2 flip-in-hor-bottom">
+                  <input type="text" [(ngModel)]="item.empleado.nombre" class="form-control" id="NameInput" [name]="'Name'+i" placeholder="Nombre">
+                  
+                </div>
+                  <small id="Error" class="text-danger" *ngIf="item.valid.name.error">
+                    {{item.valid.name.text}}
+                  </small>      
+            </td>
+            <td>
+              <div id="surname1InputCol" class="form-group mx-sm-3 mb-2 flip-in-hor-bottom">
+                  <input type="text" [(ngModel)]="item.empleado.apellido1" class="form-control" id="Surname1Input" [name]="'Surname1'+i" placeholder="Apellido1">
+              </div>
+              <small id="Error" class="text-danger" *ngIf="item.valid.surname1.error">
+                {{item.valid.surname1.text}}
+              </small>  
+            </td>
+            <td>
+              <div id="surname2InputCol" class="form-group mx-sm-3 mb-2 flip-in-hor-bottom">
+                  <input type="text" [(ngModel)]="item.empleado.apellido2" class="form-control" id="Surname2Input" [name]="'Surname2'+i" placeholder="Apellido2">
+              </div>
+              <small id="Error" class="text-danger" *ngIf="item.valid.surname2.error">
+                {{item.valid.surname2.text}}
+              </small>  
+            </td>
+            <td>
+              <div id="dniInputCol" class="form-group mx-sm-3 mb-2 flip-in-hor-bottom">
+                  <input type="text" required [(ngModel)]="item.empleado.dni" class="form-control" id="DniInput" [name]="'Dni'+i" placeholder="DNI">
+              </div>
+              <small id="Error" class="text-danger" *ngIf="item.valid.dni.error">
+                {{item.valid.dni.text}}
+              </small>  
+            </td>
+            <td>
+              <div id="DomicilioInputCol" class="form-group mx-sm-3 mb-2 flip-in-hor-bottom">
+                  <input type="text" required [(ngModel)]="item.empleado.domicilio" class="form-control" id="DomicilioInput" [name]="'Domicilio'+i" placeholder="Domicilio">
+              </div>
+              <small id="Error" class="text-danger" *ngIf="item.valid.domicilio.error">
+                {{item.valid.domicilio.text}}
+              </small>  
+            </td>
+            <td>
+                <!-- ACCIONES  -->
+                <div class="row">
+                  <div class="col">
+                      <button type="button" class="btn btn-default btn-lg remove-btn" (click)="NuevosEmpleados.splice(i, 1)">
+                      </button>
+                  </div>
+                  <div class="col">
+                      <button type="button" class="btn btn-default btn-lg success-btn" (click)="subirEmpleado(i)">
+                      </button>
+                  </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+  </div>  
+
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">¿Seguro que quieres eliminar este empleado?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Si borras los datos se perderán para siempre
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="eliminarEmpleado(EmpleadoSelected)">Eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>
